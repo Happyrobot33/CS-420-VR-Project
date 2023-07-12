@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.happyrobot33.inspectortweaks": {
+      "version": "file:com.happyrobot33.inspectortweaks",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "2.0.5",
       "depth": 0,
