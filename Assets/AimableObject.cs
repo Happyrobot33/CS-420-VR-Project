@@ -60,6 +60,7 @@ public class AimableObject : MonoBehaviour
         transform.Rotate(0, 180, 0);
     }
 
+#if Unity_Editor
     private void OnDrawGizmos()
     {
         //draw a line from this object to the grabEmpty
@@ -104,4 +105,5 @@ public class AimableObject : MonoBehaviour
         Handles.DrawLine(transform.position, transform.position + edge1);
         Handles.DrawLine(transform.position, transform.position + edge2);
     }
+#endif
 }
