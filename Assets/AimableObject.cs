@@ -12,7 +12,7 @@ public class AimableObject : MonoBehaviour
 
     [Range(0, 180)]
     public float verticalAngleLimit = 50f;
-    public GameObject parent;
+    GameObject parent;
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +60,7 @@ public class AimableObject : MonoBehaviour
         transform.Rotate(0, 180, 0);
     }
 
-#if Unity_Editor
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         //draw a line from this object to the grabEmpty
