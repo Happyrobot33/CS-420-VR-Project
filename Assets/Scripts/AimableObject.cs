@@ -13,6 +13,8 @@ public class AimableObject : MonoBehaviour
     [Range(0, 180)]
     public float verticalAngleLimit = 50f;
     GameObject parent;
+    public GameObject horizontalHinge;
+    public GameObject verticalHinge;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +50,10 @@ public class AimableObject : MonoBehaviour
         //set the local rotation of this object to the clamped angles
         transform.localEulerAngles = new Vector3(xAngle, yAngle, 0);
 
-        Debug.Log("yAngle: " + yAngle + " xAngle: " + xAngle);
+        //set the local rotation of the horizontal hinge to the y angle
+        horizontalHinge.transform.localEulerAngles = new Vector3(0, yAngle, 0);
+        //set the local rotation of the vertical hinge to the x angle
+        verticalHinge.transform.localEulerAngles = new Vector3(xAngle, 0, 0);
     }
 
     /// <summary> Make this object's -z axis point at the grabEmpty </summary>
