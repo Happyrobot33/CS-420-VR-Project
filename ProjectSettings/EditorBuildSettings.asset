@@ -9,7 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SpawnScene.unity
     guid: fc9773eb9fb510e44ac2bf62d87e3149
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 1cbdc00404ae20a479cad1bdc8c7712b, type: 2}
-    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 6f5fbfb5a64b12940aed2860e5366a82, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: bf9ac81bb3307ae4b8a2485512d92441, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 4239ffe19a036ea4a8ba25451c5864ce, type: 2}
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 11c040f5481e13749a0dbaa12706298f,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f0a3c63be1e28484083bd584f72fa405,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 37e60bc81c2caaf4d95cc887e48dc91b,
+      type: 2}
