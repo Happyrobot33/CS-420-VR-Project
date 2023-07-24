@@ -451,6 +451,17 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "",
+                    "id": "b7e1115b-8624-4f3b-88d2-f0b54c328f73",
+                    "path": "<ViveController>{LeftHand}/deviceRotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Vector 3 Fallback",
                     "id": "14aeff85-d719-43ff-a124-b1cd7ca8686d",
                     "path": "Vector3Fallback",
@@ -493,6 +504,17 @@
                     "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f3e66cdf-6c0e-46f9-bd0c-33a298bc3039",
+                    "path": "<ViveController>{LeftHand}/devicePosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -1167,6 +1189,17 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "",
+                    "id": "820ea3c6-7d0d-4358-9281-db491c5021d2",
+                    "path": "<ViveController>{RightHand}/deviceRotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Vector 3 Fallback",
                     "id": "74e968f1-ad08-4a82-a68d-764517faecef",
                     "path": "Vector3Fallback",
@@ -1209,6 +1242,17 @@
                     "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "127088a2-1d5d-4b39-9964-dc76f1a8c05f",
+                    "path": "<ViveController>{RightHand}/devicePosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
