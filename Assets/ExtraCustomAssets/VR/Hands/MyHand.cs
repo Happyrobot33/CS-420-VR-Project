@@ -4,7 +4,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class Hand : MonoBehaviour
+public class MyHand : MonoBehaviour
 {
 
     Animator animator;
