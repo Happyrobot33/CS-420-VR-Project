@@ -28,7 +28,7 @@ public class AimableObject : MonoBehaviour
         LookAtGrabbedPosition();
 
         //get the difference between Y rotation of this object and the parent
-        float yAngle = transform.localEulerAngles.y - parent.transform.localEulerAngles.y;
+        float yAngle = transform.localEulerAngles.y;
         //if the angle is greater than 180, subtract 360 to get the negative angle
         if (yAngle > 180)
         {
@@ -36,7 +36,7 @@ public class AimableObject : MonoBehaviour
         }
 
         //get the difference between X rotation of this object and the parent
-        float xAngle = transform.localEulerAngles.x - parent.transform.localEulerAngles.x;
+        float xAngle = transform.localEulerAngles.x;
         //if the angle is greater than 180, subtract 360 to get the negative angle
         if (xAngle > 180)
         {
