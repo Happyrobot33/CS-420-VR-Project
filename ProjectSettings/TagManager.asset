@@ -8,13 +8,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - XRHands
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Grab_Ignore_Ray
+  - GrabbableHandler
+  - Grab
+  - RemoteGrab
   - 
   - 
   - 

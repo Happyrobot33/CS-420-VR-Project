@@ -18,12 +18,12 @@ public class GameManager : MonoBehaviour
         gameHasEnded = true;
 
         // Use pre-processor if directives to determine HOW to quit depending on if is a build or if is Editor runtime:
-#if UNITY_STANDALONE
-        Application.Quit();  //Ignored in Unity Editor but will shut down the running application
-#endif
 
+        //Application.Quit();  //Ignored in Unity Editor but will shut down the running application
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();  //Ignored in Unity Editor but will shut down the running application
 #endif
     }
 

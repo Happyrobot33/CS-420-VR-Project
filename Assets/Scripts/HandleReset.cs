@@ -14,6 +14,7 @@ public class HandleReset : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 // add a button in inspector to call the Reset() function
 [CustomEditor(typeof(HandleReset))]
 public class HandleResetEditor : Editor
@@ -29,3 +30,4 @@ public class HandleResetEditor : Editor
         }
     }
 }
+#endif
