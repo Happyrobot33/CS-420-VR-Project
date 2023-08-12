@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         gameHasEnded = false;
-        SceneManager.LoadScene("SpawnScene");
+        SceneManager.LoadScene("Main");
     }
 
     public void QuitGame()
