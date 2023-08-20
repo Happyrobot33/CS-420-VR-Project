@@ -27,6 +27,12 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
+    public void BackToStart()
+    {
+        gameHasEnded=true;
+        SceneManager.LoadScene("StartMenu");
+    }
+
     public void TimeExpired()
     {
         if (gameHasEnded == false)
