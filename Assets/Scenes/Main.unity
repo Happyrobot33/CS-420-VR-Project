@@ -15761,7 +15761,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0:00:00
+  m_text: 'Time Left: 00:00:00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f9c8d97f5a52e2741b8967a8983cad9d, type: 2}
   m_sharedMaterial: {fileID: -2168443189269701585, guid: f9c8d97f5a52e2741b8967a8983cad9d,
@@ -15789,7 +15789,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4.85
+  m_fontSize: 3.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -21800,6 +21800,7 @@ Transform:
   m_Children:
   - {fileID: 1969815472}
   - {fileID: 2066583381}
+  - {fileID: 1734006144}
   m_Father: {fileID: 8696360}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -27486,6 +27487,7 @@ GameObject:
   - component: {fileID: 1084024217}
   - component: {fileID: 1084024216}
   - component: {fileID: 1084024218}
+  - component: {fileID: 1084024219}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -27608,6 +27610,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_System: {fileID: 1084024217}
   m_DelayTime: 0
+--- !u!114 &1084024219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084024212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7094089aa88e8d54cbdb8c1f25a513de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCountTextUI: {fileID: 1116858304}
+  timerTextUI: {fileID: 372886933}
+  initialTimeSeconds: 300
+  isTimerRunning: 0
+  winThreshold: 1
 --- !u!1001 &1104405338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28394,7 +28413,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -3.56}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116858304
@@ -28417,7 +28436,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: "Targets hit: \n0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f9c8d97f5a52e2741b8967a8983cad9d, type: 2}
   m_sharedMaterial: {fileID: -2168443189269701585, guid: f9c8d97f5a52e2741b8967a8983cad9d,
@@ -28445,7 +28464,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7.95
+  m_fontSize: 2.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -29833,7 +29852,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438711290}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.521}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -31310,15 +31329,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734006143}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.7802725, y: 11.42, z: -5.64}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.08870063, y: -0.5841161, z: -0.048549023, w: 0.80534685}
+  m_LocalPosition: {x: -0.0775, y: 0, z: -0.1302}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1438711291}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 857838463}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 4.942, y: -72.362, z: -10.515}
 --- !u!1 &1749320011
 GameObject:
   m_ObjectHideFlags: 0

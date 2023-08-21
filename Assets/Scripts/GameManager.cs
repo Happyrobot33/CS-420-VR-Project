@@ -5,6 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [HideInInspector]
+    public static bool ranOutOfTime;
+    [HideInInspector]
+    public static bool didTheyWin;
+    [HideInInspector]
+    public static float capturedTimeSeconds;
+    [HideInInspector]
+    public static int capturedTargetsHit;
+
     private bool gameHasEnded = false;
 
     public void NewGame()
@@ -30,6 +39,7 @@ public class GameManager : MonoBehaviour
     public void BackToStart()
     {
         gameHasEnded=true;
+        didTheyWin = false;
         SceneManager.LoadScene("StartMenu");
     }
 
@@ -38,9 +48,24 @@ public class GameManager : MonoBehaviour
         if (gameHasEnded == false)
         {
             gameHasEnded = true;
+            ranOutOfTime = true; // Access this from GameOverScene to initiate different .SetActive()'s for unique UI
+            didTheyWin = false;
+            capturedTimeSeconds = 0;
+            capturedTargetsHit = WristUIController.GetCount();
             Debug.Log("GAME OVER");
-            SceneManager.LoadScene("GameOverScene");
+            SceneManager.LoadScene("GameOver");
         }
+    }
+
+    public void WonTheGame()
+    {
+        gameHasEnded = true;
+        ranOutOfTime = false; // Access this from GameOverScene to initiate different .SetActive()'s for unique UI
+        didTheyWin = true;
+        capturedTimeSeconds = WristUIController.GetRemainingTime();
+        capturedTargetsHit= WristUIController.GetCount();
+        Debug.Log("WON THE GAME");
+        SceneManager.LoadScene("GameOver");
     }
 
     // Start is called before the first frame update
