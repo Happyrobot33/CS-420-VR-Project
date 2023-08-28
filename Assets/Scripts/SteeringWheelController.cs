@@ -43,7 +43,7 @@ public class SteeringWheelController : XRBaseInteractable
 
         //Apply difference in angle to wheel
         float angleDifference = currentAngle - totalAngle;
-        steeringWheel.Rotate(transform.forward, -angleDifference);
+        steeringWheel.Rotate(transform.up, -angleDifference);
 
         //Start angle for next process
         currentAngle = totalAngle;
@@ -73,7 +73,7 @@ public class SteeringWheelController : XRBaseInteractable
     private float ConvertToAngle(Vector2 direction)
     {
         //Use a consistent up direction to find the angle
-        return Vector2.SignedAngle(transform.up, direction);
+        return Vector2.SignedAngle(transform.forward, direction);
     }
 
     private float FindRotationSensitivity()
