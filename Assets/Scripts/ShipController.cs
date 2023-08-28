@@ -11,7 +11,7 @@ public class ShipController : MonoBehaviour
     public float turnDampening = 250;
 
     protected Rigidbody Rigidbody;
-    public Transform Self;
+    public Transform TransformOfSelf;
 
     public SteeringWheelController SteeringWheelController;
 
@@ -44,7 +44,7 @@ public class ShipController : MonoBehaviour
 
         //Turning the ship
         float currentAngle = SteeringWheelController.currentAngle;
-        Rigidbody.MoveRotation(Quaternion.RotateTowards(Self.rotation, Quaternion.Euler(0, currentAngle, 0), Time.deltaTime * turnDampening));
+        Rigidbody.MoveRotation(Quaternion.RotateTowards(TransformOfSelf.rotation, Quaternion.Euler(0, currentAngle, 0), Time.deltaTime * turnDampening));
     }
 
     public void Forward()
