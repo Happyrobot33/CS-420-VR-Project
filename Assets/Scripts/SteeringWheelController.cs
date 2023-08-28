@@ -2,160 +2,83 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class SteeringWheelController : MonoBehaviour
+public class SteeringWheelController : XRBaseInteractable
 {
-    //Right Hand
-    public GameObject rightHand;
-    private Transform rightHandOriginalParent;
-    private bool rightHandOnWheel = false;
+    [SerializeField] private Transform steeringWheel;
 
-    //Left Hand
-    public GameObject leftHand;
-    private Transform leftHandOriginalParent;
-    private bool leftHandOnWheel = false;
+    public UnityEvent<float> OnWheelRotated;
 
-    public Transform[] snapPositions;
+    public float currentAngle { get; protected set; } = 0.0f;
 
-    //Objects to control
-    public GameObject Ship;
-    private Rigidbody ShipRigidBody;
-
-    public float currentSteeringWheelRotation = 0;
-
-    //turn dampening, lower number makes the ship take longer to reach the target rotation
-    //for the ship to just copy the steering wheel movement, use a high number like 9999
-    private float turnDampening = 250;
-
-    public Transform directionalObject;
-
-    // Start is called before the first frame update
-    void Start()
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        ShipRigidBody = Ship.GetComponent<Rigidbody>();
+        base.OnSelectEntered(args);
+        currentAngle = FindWheelAngle();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnSelectExited(SelectExitEventArgs args)
     {
-        ReleaseHandsFromWheel();
-
-        ConvertHandRotationToSteeringWheelRotation();
-
-        TurnShip();
-
-        currentSteeringWheelRotation = -transform.rotation.eulerAngles.z;
+        base.OnSelectExited(args);
+        currentAngle = FindWheelAngle();
     }
 
-    private void TurnShip()
+    public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
     {
-        //Turns Ship compared to the steering wheel
-        var turn = -transform.rotation.eulerAngles.z;
-        if(turn < -350)
-        {
-            turn = turn + 360;
-        }
-        ShipRigidBody.MoveRotation(Quaternion.RotateTowards(Ship.transform.rotation, Quaternion.Euler(0, turn, 0), Time.deltaTime * turnDampening));
-    }
+        base.ProcessInteractable(updatePhase);
 
-    private void ConvertHandRotationToSteeringWheelRotation()
-    {
-        if(rightHandOnWheel == true && leftHandOnWheel == false)
+        if(updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
         {
-            Quaternion newRot = Quaternion.Euler(0, 0, rightHandOriginalParent.transform.rotation.eulerAngles.z);
-            directionalObject.rotation = newRot;
-            transform.parent = directionalObject;
-        }
-        else if(rightHandOnWheel == false && leftHandOnWheel == true)
-        {
-            Quaternion newRot = Quaternion.Euler(0, 0, leftHandOriginalParent.transform.rotation.eulerAngles.z);
-            directionalObject.rotation = newRot;
-            transform.parent = directionalObject;
-        }
-        else if(rightHandOnWheel == true && leftHandOnWheel == true)
-        {
-            Quaternion newRotLeft = Quaternion.Euler(0, 0, leftHandOriginalParent.transform.rotation.eulerAngles.z);
-            Quaternion newRotRight = Quaternion.Euler(0, 0, rightHandOriginalParent.transform.rotation.eulerAngles.z);
-            Quaternion finalRot = Quaternion.Slerp(newRotLeft, newRotRight, 1f / 2f);
-            directionalObject.rotation = finalRot;
-            transform.parent = directionalObject;
+            if (isSelected)
+                RotateWheel();
         }
     }
 
-    private void ReleaseHandsFromWheel()
+    private void RotateWheel()
     {
-        if(rightHandOnWheel == true && ) //get button for grabbable interaction
-        {
-            rightHand.transform.parent = rightHandOriginalParent;
-            rightHand.transform.position = rightHandOriginalParent.position;
-            rightHand.transform.rotation = rightHandOriginalParent.rotation;
-            rightHandOnWheel = false;
-            Debug.Log("Right hand released the wheel");
-        }
+        //Convert that direction to an angle, then rotate
+        float totalAngle = FindWheelAngle();
 
-        if(leftHandOnWheel == true && ) //get button for grabbable interaction
-        {
-            leftHand.transform.parent = leftHandOriginalParent;
-            leftHand.transform.position = leftHandOriginalParent.position;
-            leftHand.transform.rotation = leftHandOriginalParent.rotation;
-            leftHandOnWheel = false;
-            Debug.Log("Left hand released the wheel;");
-        }
+        //Apply difference in angle to wheel
+        float angleDifference = currentAngle - totalAngle;
+        steeringWheel.Rotate(transform.forward, -angleDifference);
 
-        if(leftHandOnWheel == false && rightHandOnWheel == false)
-        {
-            Debug.Log("No hands are on the wheel");
-            //reset steering wheel to not be parent of directional object if wheel is released
-            transform.parent = Ship.transform;
-        }
+        //Start angle for next process
+        currentAngle = totalAngle;
+        OnWheelRotated.Invoke(angleDifference);
     }
 
-    private void OnTriggerStay(Collider other)
+    private float FindWheelAngle()
     {
-        if(other.CompareTag("PlayerHand"))
-        {
-            if(rightHandOnWheel == false && ) //get button for grabbable interaction
-            {
-                Debug.Log("Right hand placed on the wheel");
-                PlaceHandOnWheel(ref rightHand, ref rightHandOriginalParent, ref rightHandOnWheel);
-            }
+        float totalAngle = 0;
 
-            if(leftHandOnWheel == false && ) //get button for grabbable interaction
-            {
-                PlaceHandOnWheel(ref leftHand, ref leftHandOriginalParent, ref leftHandOnWheel);
-            }
+        //Combine direction of current interactors
+        foreach(IXRActivateInteractor interactor in interactorsSelecting)
+        {
+            Vector2 direction = FindLocalPoint(interactor.transform.position);
+            totalAngle += ConvertToAngle(direction) * FindRotationSensitivity();
         }
+
+        return totalAngle;
     }
 
-    private void PlaceHandOnWheel(ref GameObject hand, ref Transform originalParent, ref bool handOnWheel)
+    private Vector2 FindLocalPoint(Vector2 position)
     {
-        //Set variables to the first snap position in array
-        var shortestDistance = Vector3.Distance(snapPositions[0].position, hand.transform.position);
-        var bestSnap = snapPositions[0];
-        //loop through all snap positions
-        foreach(var snapPosition in snapPositions)
-        {
-            //if no hand is child of this snap position
-            if(snapPosition.childCount == 0)
-            {
-                //distance between hand and snap position
-                var distance = Vector3.Distance(snapPosition.position, hand.transform.position);
-                //if distance is shorter than current shortest distance
-                if(distance < shortestDistance)
-                {
-                    //set this distance to the shortest distance and this snap to the bestSnap
-                    shortestDistance = distance;
-                    bestSnap = snapPosition;
-                }
-            }
-        }
-        //we need XHandOriginalParent to be able to reset the hand after release
-        originalParent = hand.transform.parent;
+        //Convert the hand position to local, so we can find the angle easier
+        return transform.InverseTransformPoint(position).normalized;
+    }
 
-        //set best snap as parent and hand position to snap position
-        hand.transform.parent = bestSnap.transform;
-        hand.transform.position = bestSnap.transform.position;
+    private float ConvertToAngle(Vector2 direction)
+    {
+        //Use a consistent up direction to find the angle
+        return Vector2.SignedAngle(transform.up, direction);
+    }
 
-        handOnWheel = true;
+    private float FindRotationSensitivity()
+    {
+        //Use a smaller rotation sensitivity with two hands
+        return 1.0f / interactorsSelecting.Count;
     }
 }
