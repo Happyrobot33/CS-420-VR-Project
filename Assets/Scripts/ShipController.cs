@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
+    //1 for forward, 0 for neutral, -1 for reverse
     public int moveState;
 
+    //movement variables
     public float Power = 5;
     public float MaxSpeed = 10f;
     public float turnDampening = 250;
 
+    //component references needed for moving the ship
     protected Rigidbody Rigidbody;
     public Transform TransformOfSelf;
 
+    //For getting the current angle of the steering wheel
     public SteeringWheelController SteeringWheelController;
 
     public void Awake()
@@ -23,7 +27,7 @@ public class ShipController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        moveState = 0;
+        moveState = 0; //default starting value
     }
 
     private void FixedUpdate()
