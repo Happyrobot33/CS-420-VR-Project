@@ -72,7 +72,7 @@ public class SteeringWheelController : XRBaseInteractable
 
     private float ConvertToAngle(Vector2 direction)
     {
-        //Use a consistent up direction to find the angle
+        //Use a consistent forward direction to find the angle
         return Vector2.SignedAngle(transform.forward, direction);
     }
 
