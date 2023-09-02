@@ -13,15 +13,15 @@ public class ShipController : MonoBehaviour
     public float turnDampening = 250;
 
     //component references needed for moving the ship
-    protected Rigidbody Rigidbody;
-    public Transform TransformOfSelf;
+    private Rigidbody Rigidbody;
 
     //For getting the current angle of the steering wheel
-    public SteeringWheelController SteeringWheelController;
+    private SteeringWheelController SteeringWheelController;
 
     public void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
+        SteeringWheelController = GameObject.FindAnyObjectByType<SteeringWheelController>();
     }
 
     // Start is called before the first frame update
@@ -38,17 +38,27 @@ public class ShipController : MonoBehaviour
         if(moveState == 1)
         {
             //move forward
-            PhysicsHelper.ApplyForceToReachVelocity(Rigidbody, forward * MaxSpeed, Power);
+            Rigidbody.AddForce(0, 0, Power);
+            if (Rigidbody.velocity.magnitude > MaxSpeed)
+            {
+                Rigidbody.velocity = Vector3.ClampMagnitude(Rigidbody.velocity, MaxSpeed);
+            }
         }
         if( moveState == -1)
         {
             //move backward
-            PhysicsHelper.ApplyForceToReachVelocity(Rigidbody, forward * -MaxSpeed, Power);
+            Rigidbody.AddForce(0, 0, -Power);
+            if (Rigidbody.velocity.magnitude < -MaxSpeed)
+            {
+                Rigidbody.velocity = Vector3.ClampMagnitude(Rigidbody.velocity, -MaxSpeed);
+            }
         }
-
-        //Turning the ship
-        float currentAngle = SteeringWheelController.currentAngle;
-        Rigidbody.MoveRotation(Quaternion.RotateTowards(TransformOfSelf.rotation, Quaternion.Euler(0, currentAngle, 0), Time.deltaTime * turnDampening));
+        if(moveState != 0) //The ship must be moving to turn
+        {
+            //Turning the ship
+            float currentAngle = SteeringWheelController.currentAngle;
+            Rigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, currentAngle, 0), Time.deltaTime * turnDampening));
+        }
     }
 
     public void Forward()

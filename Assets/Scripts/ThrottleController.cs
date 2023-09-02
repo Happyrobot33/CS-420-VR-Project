@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class ThrottleController : MonoBehaviour
 {
-    public Transform TransformOfSelf;
-    public ShipController ShipController;
+    private ShipController ShipController;
+    public float angle;
+
+    private void Awake()
+    {
+        ShipController = GameObject.FindAnyObjectByType<ShipController>();
+        angle = transform.rotation.eulerAngles.z;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float angle = TransformOfSelf.rotation.eulerAngles.x;
+        angle = transform.rotation.eulerAngles.z;
         ThrottleCheck(angle);
     }
 
