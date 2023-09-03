@@ -30,7 +30,7 @@ public class FuseController : MonoBehaviour
     {
         // Get the spark base light's animator:
         flickerController = fuseLight.GetComponent<Animator>();
-        fuseLight.SetActive(false);
+        //fuseLight.SetActive(false);
 
         //get the fuse trigger collider
         fuseTrigger = GetComponent<Collider>();
