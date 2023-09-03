@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class FuseController : MonoBehaviour
 {
+    // The flickering light for the fuse when sparked:
+    public GameObject fuseLight;
+
+    // The flicker light's Animator component to call the flicker state change:
+    Animator flickerController;
+
     //fuse trigger collider
     Collider fuseTrigger;
 
@@ -22,6 +28,10 @@ public class FuseController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Get the spark base light's animator:
+        flickerController = fuseLight.GetComponent<Animator>();
+        fuseLight.SetActive(false);
+
         //get the fuse trigger collider
         fuseTrigger = GetComponent<Collider>();
 
@@ -54,6 +64,10 @@ public class FuseController : MonoBehaviour
         //play the fuse audio
         fuseAudio.Play();
 
+        // play the flickering light
+        fuseLight.SetActive(true);
+        flickerController.SetBool("FlickerSparkLight", true);
+
         //start the fuse
         StartCoroutine(Fuse());
 
@@ -68,6 +82,10 @@ public class FuseController : MonoBehaviour
 
         //stop the fuse audio
         fuseAudio.Stop();
+
+        // stop the flickering light
+        flickerController.SetBool("FlickerSparkLight", false);
+        fuseLight.SetActive(false);
 
         //enable the fuse trigger
         fuseTrigger.enabled = true;
