@@ -30,7 +30,10 @@ public class FuseController : MonoBehaviour
     {
         // Get the spark base light's animator:
         flickerController = fuseLight.GetComponent<Animator>();
-        //fuseLight.SetActive(false);
+
+        // Make the flickering fuse base light initially turned off:
+        flickerController.enabled = false;
+        fuseLight.SetActive(false);
 
         //get the fuse trigger collider
         fuseTrigger = GetComponent<Collider>();
@@ -66,7 +69,10 @@ public class FuseController : MonoBehaviour
 
         // play the flickering light
         fuseLight.SetActive(true);
-        flickerController.SetBool("FlickerSparkLight", true);
+
+        // enable the flicker and play the spark's light animation from the controller:
+        flickerController.enabled = true;
+        flickerController.Play("FlickerSparkLight");
 
         //start the fuse
         StartCoroutine(Fuse());
@@ -83,8 +89,9 @@ public class FuseController : MonoBehaviour
         //stop the fuse audio
         fuseAudio.Stop();
 
-        // stop the flickering light
-        flickerController.SetBool("FlickerSparkLight", false);
+        // stop the flickering light overall:
+        flickerController.enabled = false;
+        
         fuseLight.SetActive(false);
 
         //enable the fuse trigger
