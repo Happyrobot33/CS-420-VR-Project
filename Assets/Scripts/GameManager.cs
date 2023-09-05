@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
     }*/
 }
 
+#if UNITY_EDITOR
 //custom editor
 [CustomEditor(typeof(GameManager))]
 public class GameManagerEditor : Editor
@@ -125,6 +126,7 @@ public class GameManagerEditor : Editor
         }
     }
 }
+#endif
 
 //scriptable object for the level settings
 [CreateAssetMenu(fileName = "LevelSettings", menuName = "LevelSettings", order = 1)]
