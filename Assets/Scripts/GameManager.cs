@@ -79,6 +79,9 @@ public class GameManager : MonoBehaviour
     //coroutine for when the scene is loaded
     IEnumerator LoadLevel()
     {
+        //avoid destroying the game manager when loading a new scene with level settings
+        DontDestroyOnLoad(gameObject);
+
         var asyncLoad = SceneManager.LoadSceneAsync("Main", LoadSceneMode.Single); //load the scene
         //wait for the scene to load
         while (!asyncLoad.isDone)
@@ -89,15 +92,20 @@ public class GameManager : MonoBehaviour
         //check to make sure the level settings are set
         if (levelSettings == null)
         {
+            //if fallback is false then just destroy
+            if (fallbacklevelSettings == null)
+            {
+                Destroy(gameObject);
+                yield break;
+            }
             //if not, set them to the fallback
             levelSettings = fallbacklevelSettings;
         }
 
-        //wait 1 second
-        yield return new WaitForSeconds(1);
-
         //once loaded, apply the level settings
         LevelSettingsSO.ApplyToCurrentScene(levelSettings);
+        //destroy self since the scene already has a game manager
+        Destroy(gameObject);
     }
 
     /*
@@ -128,39 +136,3 @@ public class GameManagerEditor : Editor
 }
 #endif
 
-//scriptable object for the level settings
-[CreateAssetMenu(fileName = "LevelSettings", menuName = "LevelSettings", order = 1)]
-public class LevelSettingsSO : ScriptableObject
-{
-    public string name = "UNDEF";
-    public string description = "UNDEF";
-
-    //1-5?
-    [Range(0, 5)]
-    [Tooltip("1-5 Difficulty Rating")]
-    public int difficulty = 0;
-
-    [Tooltip("Number of targets required to win")]
-    public int requiredTargets = 1;
-
-    [Tooltip("Time in seconds between each target spawn. Can be a decimal value.")]
-    public int targetSpawnTime = 1;
-
-    [Tooltip("Max ammount of targets that can be active at once")]
-    public int maxTargets = 10;
-
-    [Tooltip("Time in seconds for the level")]
-    public float timeLimit = 60;
-
-    public static void ApplyToCurrentScene(LevelSettingsSO levelSettings)
-    {
-        Debug.Log("Applying level settings to current scene");
-        Debug.Log("Level Name: " + levelSettings.name);
-        //get the target spawner
-        TargetSpawner targetSpawner = FindObjectOfType<TargetSpawner>();
-        //set the target spawner's spawn interval
-        targetSpawner.spawnInterval = levelSettings.targetSpawnTime;
-        //set the target spawner's max active targets
-        targetSpawner.maxActiveTargets = levelSettings.maxTargets;
-    }
-}
