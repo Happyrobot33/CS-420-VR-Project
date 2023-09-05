@@ -20,7 +20,11 @@ public class CannonController : MonoBehaviour
     public ParticleSystem cannonParticles;
 
     // Start is called before the first frame update
-    void Start() { }
+    void Start() 
+    {
+        // Assure that barrel end cannon particles don't play at the start:
+        cannonParticles.Stop();
+    }
 
     // Update is called once per frame
     void Update() { }
