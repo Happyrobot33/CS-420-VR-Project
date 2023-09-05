@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7012574046429246785}
   - component: {fileID: 8895778778394432893}
   - component: {fileID: 2100420998326480204}
+  - component: {fileID: 5305900396602103121}
   m_Layer: 0
   m_Name: Water Splash
   m_TagString: Untagged
@@ -4983,3 +4984,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5305900396602103121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705494801593944753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 152ab0449250d054b8f5aaa0b6a0986a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystem: {fileID: 7012574046429246785}
