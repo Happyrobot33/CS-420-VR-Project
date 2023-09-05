@@ -7,18 +7,24 @@ public class RigidbodyKill : MonoBehaviour
 {
     Collider col;
 
+    //water enter prefab
+    public GameObject waterEnterPrefab;
+
     void Start()
     {
         col = GetComponent<Collider>();
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision other)
     {
         //check if the collision is a rigidbody
-        if (collision.gameObject.GetComponent<Rigidbody>())
+        if (other.gameObject.GetComponent<Rigidbody>() != null)
         {
             //kill the rigidbody
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
+
+            //instantiate the water enter prefab at the collision point
+            Instantiate(waterEnterPrefab, other.contacts[0].point, Quaternion.identity);
         }
     }
 }

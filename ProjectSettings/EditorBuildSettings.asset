@@ -14,9 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 1df17421805b80c46b98187897c8e681
-  - enabled: 1
-    path: Assets/Scenes/Ship Movement Testing.unity
-    guid: 95e0e493a272b5c4c8b357348bb73f46
+main
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 11c040f5481e13749a0dbaa12706298f,
       type: 2}
@@ -27,4 +25,6 @@ EditorBuildSettings:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f0a3c63be1e28484083bd584f72fa405,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 37e60bc81c2caaf4d95cc887e48dc91b,
+      type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 757b245008bc2fa46b9371d69f0434d2,
       type: 2}

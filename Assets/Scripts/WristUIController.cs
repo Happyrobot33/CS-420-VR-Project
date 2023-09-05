@@ -6,6 +6,11 @@ using System;
 
 public class WristUIController : MonoBehaviour
 {
+    // To be used with making the Wrist Menu visible/invisible upon facing the player's vision:
+    public GameObject WristMenuUIObject;
+    public GameObject vrCameraCollider;
+
+    // To be used with keeping track of game's runtime and progress:
     public TextMeshProUGUI targetCountTextUI;
     public TextMeshProUGUI timerTextUI;
 
@@ -19,6 +24,31 @@ public class WristUIController : MonoBehaviour
     private int rawConvertedHours;
     private int rawConvertedMinutes;
     private int rawConvertedSeconds;
+
+    void checkToBecomeVisible()
+    {
+        RaycastHit whatWasHit;
+        //Ray wristMenuRay = new Ray(transform.position, transform.forward);
+        //Vector3 localForward = WristMenuUIObject.transform.InverseTransformDirection(WristMenuUIObject.transform.forward); 
+        Vector3 localForward = (WristMenuUIObject.transform.forward);
+        Ray wristMenuRay = new Ray(WristMenuUIObject.transform.position, localForward);
+
+        Debug.DrawRay(WristMenuUIObject.transform.position, localForward * 10, Color.blue);
+
+        if(Physics.Raycast(wristMenuRay, out whatWasHit) )
+        {
+            if (whatWasHit.collider.name == vrCameraCollider.name)
+            {
+                WristMenuUIObject.SetActive(true);
+                //Debug.Log("I FOUND THE CAMERA!!!");
+            }
+            else
+            {
+                WristMenuUIObject.SetActive(false);
+                //Debug.Log("I cannot find the camera...");
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +73,9 @@ public class WristUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        checkToBecomeVisible();
+
         //SetTimerText();
 
         // If the amount of targets recorded to be knocked = win condition:
