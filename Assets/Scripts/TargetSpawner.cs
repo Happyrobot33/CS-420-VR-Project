@@ -24,7 +24,6 @@ public class TargetSpawner : MonoBehaviour
     //main coroutine
     IEnumerator SpawnTargets()
     {
-        Debug.Log("Spawning Targets");
         //loop forever
         while (true)
         {
@@ -34,7 +33,6 @@ public class TargetSpawner : MonoBehaviour
             targets = targets.Where(x => x != null).ToList();
             //generate a random spawn
             GenerateRandomSpawn();
-            Debug.Log("Spawned Target");
         }
     }
 
