@@ -92,6 +92,12 @@ public class GameManager : MonoBehaviour
         //check to make sure the level settings are set
         if (levelSettings == null)
         {
+            //if fallback is false then just destroy
+            if (fallbacklevelSettings == null)
+            {
+                Destroy(gameObject);
+                yield break;
+            }
             //if not, set them to the fallback
             levelSettings = fallbacklevelSettings;
         }
