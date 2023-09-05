@@ -67,9 +67,7 @@ public class WristUIController : MonoBehaviour
         isTimerRunning = true; //For testing purposes, timer is started at the beginning of the game
 
         SetCountText();
-
         SetTimerText();
-
     }
 
     // Update is called once per frame
@@ -163,9 +161,14 @@ public class WristUIController : MonoBehaviour
     public static int GetCount() { return count; }
 
     /// <summary>
-    /// Sets the time left to a new value
+    /// Returns the remaining time
     /// </summary>
-    /// <param name="newTimeLeft"></param>
     /// <returns></returns>
     public static float GetRemainingTime() { return timeLeft; }
+
+    /// <summary>
+    /// Sets the remaining time
+    /// </summary>
+    /// <param name="newTime"></param>
+    public static void SetRemainingTime(float newTime) { timeLeft = newTime; }
 }

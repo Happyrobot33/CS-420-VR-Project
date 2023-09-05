@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Test
+  m_Name: Easy
   m_EditorClassIdentifier: Assembly-CSharp::LevelSettingsSO
-  name: TESTEST
-  description: UNDEF
-  difficulty: 0
-  requiredTargets: 10000
+  name: Easy
+  description: Easy level
+  difficulty: 1
+  requiredTargets: 10
   targetSpawnTime: 1
-  maxTargets: 40
-  timeLimit: 60
+  maxTargets: 20
+  minSpawnDistance: 30
+  maxSpawnDistance: 55
+  maxHeight: 18
+  timeLimit: 300

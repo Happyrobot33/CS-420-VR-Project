@@ -18,4 +18,7 @@ MonoBehaviour:
   requiredTargets: 1
   targetSpawnTime: 1
   maxTargets: 10
+  minSpawnDistance: 30
+  maxSpawnDistance: 55
+  maxHeight: 18
   timeLimit: 60
