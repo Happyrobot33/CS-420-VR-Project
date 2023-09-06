@@ -4,63 +4,60 @@ using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
+    //1 for forward, 0 for neutral, -1 for reverse
     public int moveState;
-    public Transform SteeringWheel;
 
-    public Transform Motor;
-    public float SteerPower = 500f;
+    //movement variables
     public float Power = 5;
     public float MaxSpeed = 10f;
-    public float Drag = 0.1f;
+    public float turnDampening = 250;
 
-    protected Rigidbody Rigidbody;
-    protected Quaternion StartRotation;
+    //component references needed for moving the ship
+    private Rigidbody Rigidbody;
+
+    //For getting the current angle of the steering wheel
+    private SteeringWheelController SteeringWheelController;
 
     public void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
-        StartRotation = Motor.localRotation;
+        SteeringWheelController = GameObject.FindAnyObjectByType<SteeringWheelController>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        moveState = 0;
+        moveState = 0; //default starting value
     }
 
     private void FixedUpdate()
     {
-        var forceDiretion = transform.forward;
-        var steer = 0;
-
-        if(SteeringWheel.rotation.eulerAngles.z < 1)
-        {
-            Debug.Log("Turning Right");
-            //turn right
-            steer = -1;
-        }
-        if(SteeringWheel.rotation.eulerAngles.z > 1)
-        {
-            Debug.Log("Turning Left");
-            //turn left
-            steer = 1;
-        }
-
-        //find a way to implement variable speed based on how far the wheel has been turned
-        //maybe change SteerPower from being a static number to an adjustable variable
-        Rigidbody.AddForceAtPosition(steer * transform.right * SteerPower / 100f, Motor.position);
-
+        //Moving the ship forward or backward
         var forward = Vector3.Scale(new Vector3(1, 0, 1), transform.forward);
 
         if(moveState == 1)
         {
             //move forward
-            PhysicsHelper.ApplyForceToReachVelocity(Rigidbody, forward * MaxSpeed, Power);
+            Rigidbody.AddForce(0, 0, Power);
+            if (Rigidbody.velocity.magnitude > MaxSpeed)
+            {
+                Rigidbody.velocity = Vector3.ClampMagnitude(Rigidbody.velocity, MaxSpeed);
+            }
         }
         if( moveState == -1)
         {
             //move backward
-            PhysicsHelper.ApplyForceToReachVelocity(Rigidbody, forward * -MaxSpeed, Power);
+            Rigidbody.AddForce(0, 0, -Power);
+            if (Rigidbody.velocity.magnitude < -MaxSpeed)
+            {
+                Rigidbody.velocity = Vector3.ClampMagnitude(Rigidbody.velocity, -MaxSpeed);
+            }
+        }
+        if(moveState != 0) //The ship must be moving to turn
+        {
+            //Turning the ship
+            float currentAngle = SteeringWheelController.currentAngle;
+            Rigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, currentAngle, 0), Time.deltaTime * turnDampening));
         }
     }
 

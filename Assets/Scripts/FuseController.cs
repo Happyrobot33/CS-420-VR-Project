@@ -41,6 +41,9 @@ public class FuseController : MonoBehaviour
         //get the fuse particles
         fuseParticles = GetComponentInChildren<ParticleSystem>();
 
+        // Disable fuse particles from playing right at the start:
+        fuseParticles.Stop();
+
         //get the fuse audio
         fuseAudio = GetComponentInChildren<AudioSource>();
     }

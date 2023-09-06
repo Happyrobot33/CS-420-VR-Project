@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,19 +8,21 @@ public class GameManager : MonoBehaviour
 {
     [HideInInspector]
     public static bool ranOutOfTime;
-    [HideInInspector]
     public static bool didTheyWin;
-    [HideInInspector]
     public static float capturedTimeSeconds;
-    [HideInInspector]
     public static int capturedTargetsHit;
+
+    public LevelSettingsSO fallbacklevelSettings;
+    public static LevelSettingsSO levelSettings;
 
     private bool gameHasEnded = false;
 
     public void NewGame()
     {
         gameHasEnded = false;
-        SceneManager.LoadScene("Main");
+
+        //start loading coroutine
+        StartCoroutine(LoadLevel());
     }
 
     public void QuitGame()
@@ -68,15 +71,68 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
 
-    // Start is called before the first frame update
-    /*void Start()
+    public void SetLevel(LevelSettingsSO levelSettings)
     {
-        
+        GameManager.levelSettings = levelSettings;
     }
 
-    // Update is called once per frame
-    void Update()
+    //coroutine for when the scene is loaded
+    IEnumerator LoadLevel()
     {
-        
+        //avoid destroying the game manager when loading a new scene with level settings
+        DontDestroyOnLoad(gameObject);
+
+        var asyncLoad = SceneManager.LoadSceneAsync("Main", LoadSceneMode.Single); //load the scene
+        //wait for the scene to load
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        //check to make sure the level settings are set
+        if (levelSettings == null)
+        {
+            //if fallback is false then just destroy
+            if (fallbacklevelSettings == null)
+            {
+                Destroy(gameObject);
+                yield break;
+            }
+            //if not, set them to the fallback
+            levelSettings = fallbacklevelSettings;
+        }
+
+        //once loaded, apply the level settings
+        LevelSettingsSO.ApplyToCurrentScene(levelSettings);
+        //destroy self since the scene already has a game manager
+        Destroy(gameObject);
+    }
+
+    /*
+    void Start()
+    {
     }*/
 }
+
+#if UNITY_EDITOR
+//custom editor
+[CustomEditor(typeof(GameManager))]
+public class GameManagerEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        GameManager myScript = (GameManager)target;
+        if (GUILayout.Button("New Game"))
+        {
+            myScript.NewGame();
+        }
+        if (GUILayout.Button("Quit Game"))
+        {
+            myScript.QuitGame();
+        }
+    }
+}
+#endif
+

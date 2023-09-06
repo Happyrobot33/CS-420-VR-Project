@@ -13,6 +13,7 @@ public class WristUIController : MonoBehaviour
     // To be used with keeping track of game's runtime and progress:
     public TextMeshProUGUI targetCountTextUI;
     public TextMeshProUGUI timerTextUI;
+    public AudioSource TargetScoredSound;
 
     public float initialTimeSeconds = 0;
     [HideInInspector]
@@ -20,6 +21,7 @@ public class WristUIController : MonoBehaviour
     public int winThreshold = 1;
 
     private static float timeLeft;
+    private int prevCount;
     private static int count;
     private int rawConvertedHours;
     private int rawConvertedMinutes;
@@ -65,9 +67,7 @@ public class WristUIController : MonoBehaviour
         isTimerRunning = true; //For testing purposes, timer is started at the beginning of the game
 
         SetCountText();
-
         SetTimerText();
-
     }
 
     // Update is called once per frame
@@ -83,6 +83,7 @@ public class WristUIController : MonoBehaviour
         {
             // Then end the game prematurely, showing the amount of time left and the total number of targets hit:
             isTimerRunning = false;
+            Debug.Log("You hit the goal for number of targets hit! ENDING THE GAME >");
             FindObjectOfType<GameManager>().WonTheGame();
         }
 
@@ -109,6 +110,16 @@ public class WristUIController : MonoBehaviour
         }
 
         SetTimerText();
+        //check if the count has changed
+        if (prevCount != count)
+        {
+            //play the target scored sound
+            TargetScoredSound.Play();
+            //update the count text
+            SetCountText();
+            //update the previous count
+            prevCount = count;
+        }
     }
 
     void SetCountText()
@@ -126,17 +137,39 @@ public class WristUIController : MonoBehaviour
     }
 
     // Use SetCount() and IncrementCountBy() whenever a target is hit
+    /// <summary>
+    /// Sets the count to a new value
+    /// </summary>
+    /// <param name="newCount"></param>
     public static void SetCount(int newCount)
     {
         count = newCount;
     }
 
+    /// <summary>
+    /// Increments the count by a value
+    /// </summary>
+    /// <param name="addedToCount"></param>
     public static void IncrementCountBy(int addedToCount)
     {
         count += addedToCount;
     }
 
+    /// <summary>
+    /// Returns the current count
+    /// </summary>
+    /// <returns></returns>
     public static int GetCount() { return count; }
 
+    /// <summary>
+    /// Returns the remaining time
+    /// </summary>
+    /// <returns></returns>
     public static float GetRemainingTime() { return timeLeft; }
+
+    /// <summary>
+    /// Sets the remaining time
+    /// </summary>
+    /// <param name="newTime"></param>
+    public static void SetRemainingTime(float newTime) { timeLeft = newTime; }
 }
