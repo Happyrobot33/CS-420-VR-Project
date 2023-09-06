@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.35775155, g: 0.73686606, b: 0.9810811, a: 1}
+  m_IndirectSpecularColor: {r: 0.3575618, g: 0.7353643, b: 0.97655886, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -668,7 +668,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 415.8, y: -117}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &259875377
 MonoBehaviour:
@@ -2170,7 +2170,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 415.8, y: -22}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &739396411
 MonoBehaviour:
@@ -3545,7 +3545,7 @@ GameObject:
   - component: {fileID: 1296250712}
   - component: {fileID: 1296250716}
   - component: {fileID: 1296250717}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3844,7 +3844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 1965649211}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -4204,7 +4204,7 @@ GameObject:
   - component: {fileID: 1333721959}
   - component: {fileID: 1333721963}
   - component: {fileID: 1333721964}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4503,7 +4503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 1965649211}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -6101,7 +6101,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 415.8, y: -210}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1792976504
 MonoBehaviour:

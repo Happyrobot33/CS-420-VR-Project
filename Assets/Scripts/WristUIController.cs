@@ -83,6 +83,7 @@ public class WristUIController : MonoBehaviour
         {
             // Then end the game prematurely, showing the amount of time left and the total number of targets hit:
             isTimerRunning = false;
+            Debug.Log("You hit the goal for number of targets hit! ENDING THE GAME >");
             FindObjectOfType<GameManager>().WonTheGame();
         }
 
