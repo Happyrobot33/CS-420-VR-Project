@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Ship Movement Testing.unity
+    guid: 95e0e493a272b5c4c8b357348bb73f46
+  - enabled: 1
     path: Assets/Scenes/StartMenu.unity
     guid: da90f86c58d196144969b5ff0a919b71
   - enabled: 1
