@@ -56,9 +56,10 @@ public class ShipController : MonoBehaviour
         if(moveState != 0) //The ship must be moving to turn
         {
             //Turning the ship
-            float currentAngle = SteeringWheelController.currentAngle;
-            Rigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, currentAngle, 0), Time.deltaTime * turnDampening));
+            
         }
+        //float currentAngle = SteeringWheelController.currentAngle;
+        //Rigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, currentAngle, 0), Time.deltaTime * turnDampening));
     }
 
     public void Forward()
