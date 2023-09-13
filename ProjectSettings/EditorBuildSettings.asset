@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StartMenuBackup.unity
-    guid: da90f86c58d196144969b5ff0a919b71
+    path: Assets/Scenes/StartMenu.unity
+    guid: e110f9ba5bd8f0645b2c36d021bdd1b0
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 6f5681f2a67c5f34abd288c68c19b76d
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 1df17421805b80c46b98187897c8e681
+  - enabled: 0
+    path: Assets/Scenes/StartMenuBackup.unity
+    guid: da90f86c58d196144969b5ff0a919b71
   - enabled: 0
     path: Assets/Scenes/MainBackup.unity
     guid: fc9773eb9fb510e44ac2bf62d87e3149
