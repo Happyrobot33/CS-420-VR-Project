@@ -43,7 +43,7 @@ public class SteeringWheelController : XRBaseInteractable
 
         //Apply difference in angle to wheel
         float angleDifference = currentAngle - totalAngle;
-        steeringWheel.Rotate(transform.forward, -angleDifference, Space.Self);
+        steeringWheel.Rotate(transform.forward, -angleDifference, Space.World);
 
         //Start angle for next process
         currentAngle = totalAngle;

@@ -22,12 +22,12 @@ public class ThrottleController : MonoBehaviour
 
     public void ThrottleCheck(float angle)
     {
-        if(angle > 30)
+        if(angle >= 10 && angle <= 15)
         {
             //set to forward
             ShipController.Forward();
         }
-        else if(angle < -30)
+        else if(angle <= 350 && angle >= 345) // must be 350 instead of -10 because of how unity calculates angles at runtime
         {
             //set to reverse
             ShipController.Reverse();
