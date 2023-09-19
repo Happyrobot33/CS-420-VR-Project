@@ -8,6 +8,7 @@ public class WristUIController : MonoBehaviour
 {
     // To be used with making the Wrist Menu visible/invisible upon facing the player's vision:
     public GameObject WristMenuUIObject;
+    public GameObject SmallWristChestObject;
     public GameObject vrCameraCollider;
 
     // To be used with keeping track of game's runtime and progress:
@@ -21,35 +22,53 @@ public class WristUIController : MonoBehaviour
     public int winThreshold = 1;
 
     private static float timeLeft;
+    private float wristUIDebounceTime;
     private int prevCount;
     private static int count;
     private int rawConvertedHours;
     private int rawConvertedMinutes;
     private int rawConvertedSeconds;
 
-    void checkToBecomeVisible()
+    bool checkToBecomeVisible()
     {
         RaycastHit whatWasHit;
         //Ray wristMenuRay = new Ray(transform.position, transform.forward);
         //Vector3 localForward = WristMenuUIObject.transform.InverseTransformDirection(WristMenuUIObject.transform.forward); 
-        Vector3 localForward = (WristMenuUIObject.transform.forward);
-        Ray wristMenuRay = new Ray(WristMenuUIObject.transform.position, localForward);
+        
+        // Get the local Z-Vectors from each object on the wrist:
+        Vector3 localWristForward = (WristMenuUIObject.transform.forward);
+        Vector3 localSmallChestForward = (SmallWristChestObject.transform.forward);
+        
+        Ray wristMenuRay = new Ray(WristMenuUIObject.transform.position, localWristForward);
+        Ray smallWristChestRay = new Ray(WristMenuUIObject.transform.position, localSmallChestForward);
 
-        Debug.DrawRay(WristMenuUIObject.transform.position, localForward * 10, Color.blue);
+        Debug.DrawRay(WristMenuUIObject.transform.position, localWristForward * 10, Color.blue);
 
-        if(Physics.Raycast(wristMenuRay, out whatWasHit) )
+        if((Physics.Raycast(wristMenuRay, out whatWasHit)) || (Physics.Raycast(smallWristChestRay, out whatWasHit)))
         {
             if (whatWasHit.collider.name == vrCameraCollider.name)
             {
                 WristMenuUIObject.SetActive(true);
+                return true;
                 //Debug.Log("I FOUND THE CAMERA!!!");
             }
             else
             {
-                WristMenuUIObject.SetActive(false);
+                // Give it some extra visibility time if the debounce still has time left:
+                if (wristUIDebounceTime > 0)
+                {
+                    WristMenuUIObject.SetActive(true);
+                }
+                else
+                {
+                    WristMenuUIObject.SetActive(false);
+                }
+                
+                return false;
                 //Debug.Log("I cannot find the camera...");
             }
         }
+        else { return false; }
     }
 
     // Start is called before the first frame update
@@ -57,6 +76,7 @@ public class WristUIController : MonoBehaviour
     {
         count = 0;
         timeLeft = initialTimeSeconds;
+        wristUIDebounceTime = 2.0f;
 
         //Store time remaining conversions from seconds into respective variables:
         rawConvertedHours = TimeSpan.FromSeconds(timeLeft).Hours;
@@ -65,6 +85,8 @@ public class WristUIController : MonoBehaviour
 
         //isTimerRunning = false;
         isTimerRunning = true; //For testing purposes, timer is started at the beginning of the game
+        Debug.Log("Starting time = " + initialTimeSeconds);
+        Debug.Log("Remaining time at start = " + timeLeft);
 
         SetCountText();
         SetTimerText();
@@ -74,7 +96,20 @@ public class WristUIController : MonoBehaviour
     void Update()
     {
 
-        checkToBecomeVisible();
+        bool shouldWristUIRefresh = checkToBecomeVisible();
+        if (shouldWristUIRefresh)
+        {
+            // Reset timer back to 2 seconds:
+            wristUIDebounceTime = 2.0f;
+        }
+        else
+        {
+            if (wristUIDebounceTime > 0)
+            {
+                wristUIDebounceTime -= Time.deltaTime;
+            }
+            // Else, do nothing; it's at 0 already
+        }
 
         //SetTimerText();
 
@@ -168,8 +203,20 @@ public class WristUIController : MonoBehaviour
     public static float GetRemainingTime() { return timeLeft; }
 
     /// <summary>
+    /// Returns the initial time set by the Inspector
+    /// </summary>
+    /// <returns></returns>
+    //public static float GetInitialTime() { return initialTimeSeconds; }
+
+    /// <summary>
     /// Sets the remaining time
     /// </summary>
     /// <param name="newTime"></param>
     public static void SetRemainingTime(float newTime) { timeLeft = newTime; }
+
+    /// <summary>
+    /// Sets the initial time
+    /// </summary>
+    /// <param name="newTime"></param>
+    //public static void SetInitialTime(float newInitTime) { initialTimeSeconds = newInitTime; }
 }

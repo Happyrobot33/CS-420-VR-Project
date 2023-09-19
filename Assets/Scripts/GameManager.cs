@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         gameHasEnded=true;
         didTheyWin = false;
+        capturedTargetsHit = 0;
         SceneManager.LoadScene("StartMenu");
     }
 
@@ -50,11 +51,17 @@ public class GameManager : MonoBehaviour
     {
         if (gameHasEnded == false)
         {
+            // Store and report post-data of this game:
             gameHasEnded = true;
             ranOutOfTime = true; // Access this from GameOverScene to initiate different .SetActive()'s for unique UI
             didTheyWin = false;
             capturedTimeSeconds = 0;
             capturedTargetsHit = WristUIController.GetCount();
+
+            // Reset static counter's count back to 0 for next game after storing this game's data:
+            WristUIController.SetCount(0);
+            // Reset static timer's time back to initial set time for next game after storing this game's data:
+            //WristUIController.SetRemainingTime(WristUIController.GetInitialTime());
             Debug.Log("GAME OVER");
             SceneManager.LoadScene("GameOver");
         }
@@ -62,11 +69,17 @@ public class GameManager : MonoBehaviour
 
     public void WonTheGame()
     {
+        // Store and report post-data of this game:
         gameHasEnded = true;
         ranOutOfTime = false; // Access this from GameOverScene to initiate different .SetActive()'s for unique UI
         didTheyWin = true;
         capturedTimeSeconds = WristUIController.GetRemainingTime();
         capturedTargetsHit= WristUIController.GetCount();
+
+        // Reset static counter's count back to 0 for next game after storing this game's data:
+        WristUIController.SetCount(0);
+        // Reset static timer's time back to initial set time for next game after storing this game's data:
+        //WristUIController.SetRemainingTime(WristUIController.GetInitialTime());
         Debug.Log("WON THE GAME");
         SceneManager.LoadScene("GameOver");
     }
