@@ -32,36 +32,25 @@ public class OrientTorch : XRGrabInteractable
 
     public void setFirstInteractor()
     {
+        // Get the first interactor and set to the firstInteractorName var, as indicated by first element in list:
         var hoverInteractable = GetComponent<XRGrabInteractable>().interactorsHovering[0] as XRBaseInteractor;
         firstInteractorName = hoverInteractable.ToString();
     }
 
     public void setAttachXPositionBasedOnHand(float posX)
     {
-        //var grabInteractable = GetComponent<XRGrabInteractable>().interactorsSelecting[0] as XRBaseInteractor;
-        //string toStrInteractor = grabInteractable.ToString();
         float magPosX = Mathf.Abs(posX);
 
-        //Debug.Log("Selected Interactable's Interactor toString name: " + toStrInteractor);
-        //if (toStrInteractor.Equals("Left Hand Remote Grab (UnityEngine.XR.Interaction.Toolkit.XRRayInteractor)"))
+        // Depending on the hand that hovered over the torch first, configure torch's position to that hand:
         if (firstInteractorName.Equals("Left Hand Remote Grab (UnityEngine.XR.Interaction.Toolkit.XRRayInteractor)"))
         {
-            //TorchAttachPoint.transform.position = new Vector3(0.2f, 0f, 0.45f);
-            Debug.Log("The attach point's LOCAL position is: " + TorchAttachPoint.transform.localPosition);
-            Debug.Log("To be more specific, it's LOCAL X is: " + TorchAttachPoint.transform.localPosition.x);
+            // From Inspector's view, we must use local to properly adjust within VR hand:
             TorchAttachPoint.transform.localPosition = new Vector3(magPosX, 0f, 0.45f);
-            //Debug.Log("The NEW attach point's position is: " + TorchAttachPoint.transform.position);
-            //Debug.Log("To be more specific, it's NEW X is: " + TorchAttachPoint.transform.position.x);
         }
         else
         {
-            //TorchAttachPoint.transform.position = new Vector3(-0.2f, 0f, 0.45f);
-            Debug.Log("The attach point's position is: " + TorchAttachPoint.transform.position);
-            Debug.Log("To be more specific, it's X is: " + TorchAttachPoint.transform.position.x);
-            //Debug.Log(toStrInteractor);
+            // From Inspector's view, we must use local to properly adjust within VR hand:
             TorchAttachPoint.transform.localPosition = new Vector3(-magPosX, 0f, 0.45f);
-            //Debug.Log("The NEW attach point's position is: " + TorchAttachPoint.transform.position);
-            //Debug.Log("To be more specific, it's NEW X is: " + TorchAttachPoint.transform.position.x);
         }
     }
 }

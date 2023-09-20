@@ -46,10 +46,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1019
+    m_Bits: 763
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -515,7 +515,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -5958,7 +5958,7 @@ PrefabInstance:
     - target: {fileID: 4755347905878070672, guid: 9592bf447f9fc824eb5ac5df2ecf17e6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5
+      value: 1.303
       objectReference: {fileID: 0}
     - target: {fileID: 4755347905878070672, guid: 9592bf447f9fc824eb5ac5df2ecf17e6,
         type: 3}
