@@ -7,6 +7,7 @@ using System.Linq;
 public class TargetSpawner : MonoBehaviour
 {
     public GameObject targetPrefab;
+    public GameObject worldsPosition;
     public float spawnInterval = 1.0f;
     public int maxActiveTargets = 10;
     //list of targets
@@ -58,7 +59,7 @@ public class TargetSpawner : MonoBehaviour
         //set the targets rotation to look at the spawner
         newTarget.transform.LookAt(transform);
         //set the target's parent to this object
-        newTarget.transform.parent = transform;
+        newTarget.transform.parent = worldsPosition.transform;
         //add the target to the targets array
         targets.Add(newTarget);
     }

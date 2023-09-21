@@ -24154,6 +24154,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8137692257650167727}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41866fee77db4184bb03f46d55844c9e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8514354877466565785}
   m_SourcePrefab: {fileID: 100100000, guid: 41866fee77db4184bb03f46d55844c9e, type: 3}
 --- !u!1 &6984827110254219931 stripped
 GameObject:
@@ -24343,13 +24347,37 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8514354877466565785}
+        m_TargetAssemblyTypeName: TeleportRendererController, Assembly-CSharp
+        m_MethodName: disableSelectingRemoteGrabVisual
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 337898664987179247}
         m_TargetAssemblyTypeName: TorchReset, Assembly-CSharp
         m_MethodName: Reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8514354877466565785}
+        m_TargetAssemblyTypeName: TeleportRendererController, Assembly-CSharp
+        m_MethodName: enableSelectingRemoteGrabVisual
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24454,6 +24482,22 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   TorchAttachPoint: {fileID: 1995473818107262229}
+--- !u!114 &8514354877466565785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6984827110254219931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fbe65bb5b8ffe478e0e107bece3e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftRemoteGrabController: {fileID: 0}
+  RightRemoteGrabController: {fileID: 0}
+  LeftGrabController: {fileID: 0}
+  RightGrabController: {fileID: 0}
 --- !u!4 &7756543894535850017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 41866fee77db4184bb03f46d55844c9e,
