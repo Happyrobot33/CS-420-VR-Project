@@ -54,11 +54,6 @@ public class LevelSettingsSO : ScriptableObject
         //get the WristUIController
         WristUIController wristUIController = FindObjectOfType<WristUIController>();
 
-        // *** ADDED FOR START TIME FIX ***
-        //set the wrist UI starting time given the limit
-        //WristUIController.SetInitialTime(levelSettings.timeLimit);
-        // *** END OF FIX ***
-
         //set the wrist UI controller's time limit
         WristUIController.SetRemainingTime(levelSettings.timeLimit);
         //set the wrist UI controller's required targets
