@@ -28,6 +28,7 @@ public class ShipController : MonoBehaviour
     {
         Rotation.rotation *= Quaternion.Euler(0, Quaternion.Euler(transform.InverseTransformVector(SteeringWheel.angularVelocity) * Time.fixedDeltaTime * TurnSpeed).eulerAngles.z, 0);
         Position.Translate(Ship.forward * moveState * Power * Time.fixedDeltaTime); //moveState must be flipped to make sure the ship moves in the correct direction
+
     }
 
     public void Forward()
