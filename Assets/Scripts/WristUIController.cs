@@ -32,26 +32,25 @@ public class WristUIController : MonoBehaviour
     bool checkToBecomeVisible()
     {
         RaycastHit whatWasHit;
-        //Ray wristMenuRay = new Ray(transform.position, transform.forward);
-        //Vector3 localForward = WristMenuUIObject.transform.InverseTransformDirection(WristMenuUIObject.transform.forward); 
         
-        // Get the local Z-Vectors from each object on the wrist:
+        // Get the Z-Vectors from each object on the wrist:
         Vector3 localWristForward = (WristMenuUIObject.transform.forward);
         Vector3 localSmallChestForward = (SmallWristChestObject.transform.forward);
         
         Ray wristMenuRay = new Ray(WristMenuUIObject.transform.position, localWristForward);
         Ray smallWristChestRay = new Ray(WristMenuUIObject.transform.position, localSmallChestForward);
 
-        Debug.DrawRay(WristMenuUIObject.transform.position, localWristForward * 10, Color.blue);
+        Debug.DrawRay(WristMenuUIObject.transform.position, localWristForward * 10, Color.blue); // For testing
 
         if((Physics.Raycast(wristMenuRay, out whatWasHit)) || (Physics.Raycast(smallWristChestRay, out whatWasHit)))
         {
+            // If the wrist UI ray or chest ray hits the camera collider, then make the wrist UI visible:
             if (whatWasHit.collider.name == vrCameraCollider.name)
             {
                 WristMenuUIObject.SetActive(true);
                 return true;
-                //Debug.Log("I FOUND THE CAMERA!!!");
             }
+            // Else, let the wrist UI's visibility expire:
             else
             {
                 // Give it some extra visibility time if the debounce still has time left:
@@ -65,7 +64,6 @@ public class WristUIController : MonoBehaviour
                 }
                 
                 return false;
-                //Debug.Log("I cannot find the camera...");
             }
         }
         else { return false; }
@@ -85,8 +83,6 @@ public class WristUIController : MonoBehaviour
 
         //isTimerRunning = false;
         isTimerRunning = true; //For testing purposes, timer is started at the beginning of the game
-        Debug.Log("Starting time = " + initialTimeSeconds);
-        Debug.Log("Remaining time at start = " + timeLeft);
 
         SetCountText();
         SetTimerText();
@@ -111,14 +107,11 @@ public class WristUIController : MonoBehaviour
             // Else, do nothing; it's at 0 already
         }
 
-        //SetTimerText();
-
         // If the amount of targets recorded to be knocked = win condition:
         if (count == winThreshold)
         {
             // Then end the game prematurely, showing the amount of time left and the total number of targets hit:
             isTimerRunning = false;
-            Debug.Log("You hit the goal for number of targets hit! ENDING THE GAME >");
             FindObjectOfType<GameManager>().WonTheGame();
         }
 
@@ -203,20 +196,9 @@ public class WristUIController : MonoBehaviour
     public static float GetRemainingTime() { return timeLeft; }
 
     /// <summary>
-    /// Returns the initial time set by the Inspector
-    /// </summary>
-    /// <returns></returns>
-    //public static float GetInitialTime() { return initialTimeSeconds; }
-
-    /// <summary>
     /// Sets the remaining time
     /// </summary>
     /// <param name="newTime"></param>
     public static void SetRemainingTime(float newTime) { timeLeft = newTime; }
 
-    /// <summary>
-    /// Sets the initial time
-    /// </summary>
-    /// <param name="newTime"></param>
-    //public static void SetInitialTime(float newInitTime) { initialTimeSeconds = newInitTime; }
 }
